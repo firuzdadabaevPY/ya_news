@@ -91,3 +91,8 @@ def ten_comments(author, news):
         )
         comment.created = now + timedelta(days=index)
         comment.save()
+
+
+@pytest.fixture
+def comment_data():
+    return {'text': 'Текст комментария'}
