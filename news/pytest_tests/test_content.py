@@ -1,17 +1,21 @@
+import pytest
+
 from django.urls import reverse
+from django.conf import settings
 
 from news.forms import CommentForm
 
 HOME_URL = 'news:home'
 
 
-def test_news_count(client, ten_news_count):
+@pytest.mark.django_db
+def test_news_count(client, ten_news):
     url = reverse(HOME_URL)
     response = client.get(url)
 
     object_list = response.context['object_list']
 
-    assert object_list.count() == ten_news_count
+    assert object_list.count() == settings.NEWS_COUNT_ON_HOME_PAGE
 
 
 def test_ten_news_order(ten_news_count, client):
